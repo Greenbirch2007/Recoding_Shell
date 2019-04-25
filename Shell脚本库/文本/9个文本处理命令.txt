@@ -1,0 +1,11 @@
+史上最全的 Linux Shell 文本处理工具集锦，快收藏！
+
+
+本文将介绍Linux下使用Shell处理文本时最常用的工具：
+find、grep、xargs、sort、uniq、tr、cut、paste、wc、sed、awk；
+
+提供的例子和参数都是最常用和最为实用的；
+
+对shell脚本使用的原则是命令单行书写，尽量不要超过2行；
+
+如果有更为复杂的任务需求，还是考虑python吧；
