@@ -1,0 +1,9 @@
+1987name
+bc.sh
+expr.sh
+let.sh
+read.sh
+tee.png
+tee.sh
+text.txt
+this is a appended line
