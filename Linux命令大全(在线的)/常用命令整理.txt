@@ -37,3 +37,83 @@ set
 查看环境变量
 
 set命令可以查看所有的shell变量，其中包括环境变量
+
+
+从键盘或文件中获取标准输入：read命令
+
+文件的描述符和重定向
+
+
+>  >>
+tee
+cat
+exec
+
+＆
+
+
+
+0---stdin(标准输入)
+1----stdout(标准输出)
+2-----stderr(标准错误)
+
+
+数组、关联数组和别名使用
+
+普通数组只能使用整数作为数组的索引值
+
+array[key]=value
+
+
+单行一列值
+array_pt=(1 2 3 4 5 6 )
+
+一组索引值
+
+array_pt[0]="text1"
+array_pt[1]="text2"
+array_pt[2]="text3"
+
+$,*,@,#
+
+uset
+
+
+
+array=([0]=one,[1]=two,[2]=three,[3]=four)
+
+关联数组的索引值可以使用任意的文本
+
+declare -A array_var
+
+使用内嵌索引－值列表法将水元素添加到关联数组
+array_var=( [one]=one-1 [two]=two-2 [three]=three-3 [four]=four-4 [five]=five-5 [six]=six-6 )
+
+使用独立的索引值－值进行赋值
+
+array_var[one]=one-1
+array_var[two]=two-2
+array_var[three]=three-3
+array_var[four]=four-4
+array_var[five]=five-5
+array_var[six]=six-6
+
+
+Shell函数的定义、执行、传参和递归函数
+
+格式１
+
+function name(){
+command sequence(命令序列)；｝
+
+格式２
+
+name(){
+command sequence(命令序列)；｝
+
+直接使用函数名来滴啊用某个函数
+
+递归函数(能够调用自身的函数)
+
+
+
