@@ -1,0 +1,25 @@
+
+
+
+1.安装zsh 以及oh-my-zsh
+
+oh-my-zsh,让你的终端从未这么爽过
+
+
+https://cloud.tencent.com/developer/article/1152727
+
+
+
+2. 变换主题为random
+
+
+OhMyZsh，安装，主题配置方法
+https://www.jianshu.com/p/0f3dcec21a97
+
+
+
+3. 自动补齐插件
+
+
+[zsh 配置] zsh命令自动补全插件
+https://www.jianshu.com/p/aea390c1c8ef
