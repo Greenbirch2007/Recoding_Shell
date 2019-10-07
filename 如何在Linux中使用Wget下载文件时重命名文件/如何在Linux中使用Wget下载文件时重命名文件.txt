@@ -1,0 +1,16 @@
+
+
+
+如何在Linux中使用Wget下载文件时重命名文件
+
+
+https://www.howtoing.com/rename-downloaded-file-with-wget-in-linux
+
+
+wget -cO - http://academy.delmar.edu/Courses/ITSC1358/eBooks/LPI-101.LinuxTrainingCourseNotes.pdf > l.pdf
+
+
+
+Wget重命名下载文件
+
+请注意， -O标志告诉wget执行shell重定向，而不是指示它使用新名称而不是URL中的原始名称。 这实际上是这样的：
