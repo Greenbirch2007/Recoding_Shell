@@ -1,0 +1,111 @@
+Linux中不可错过的信息宝库
+
+
+https://mp.weixin.qq.com/s?__biz=MzI2OTA3NTk3Ng==&mid=2649284098&idx=1&sn=a5817c4840576d8a3b9ee4f09d9caaac&chksm=f2f9ad65c58e247392eb290ab2ac3023d572ae971cfb2e1c4c30a24b4e2a66d6f4173239c0f7&mpshare=1&scene=1&srcid=&sharer_sharetime=1571616240426&sharer_shareid=5baeb4516dc33f60573dd0b37ccd54cf&pass_ticket=KWSH2kHpw0Xi9tftODv0BKYIZOIQaaQ6Z5fLRjMiXWEH%2FoLZWcwvsu1cfLzrwcSM#rd
+
+
+proc文件系统是一个虚拟文件系统，它存储了当前内核运行状态相关文件，并且文件的
+内容都是动态创建的。用户可以通过查看这些文件获取系统状态以及当前正在运行的进程
+信息。而通过了解这些信息，能够帮助我们定位疑难问题。
+
+
+proc文件系统能够获取那些有用信息
+
+
+总览
+
+/proc目录下
+
+
+有三类内容：
+1.普通文件，如version,它存放的是内核版本相关信息
+2. 以数值命名的文件夹，如1,它存放的是init进程相关信息
+3. 非数字命名的文件夹，如drivers,它存放的是驱动相关信息
+
+
+事实上，很多获取系统信息的命令都是通过读取/proc下相关文件内容获取的，
+如uname,df,ps
+
+大部分情况下，它们可以满足我们对于系统状态的查看需求
+
+查看系统状态嘻嘻
+
+查看cpux信息- cpuinfo
+
+
+cat /proc/cpuinfo
+
+
+processor,逻辑CPU 
+model name,CPU信息
+cache size,CPU二级缓存大小
+
+查看物理内存，交换空间信息-meminfo
+
+head -2 meminfo # 读取前两行内容
+
+查看网络流量情况  -dev
+
+watch -n 1 /cat/proc/net/dev  #实时刷新网络流量信息
+
+
+loadavg 负载均衡
+swaps 交换空间使用情况
+mounts 已加载的文件系统列表
+iomem 物理地址分配情况
+version 内核版本信息
+partitions 分区表
+diskstats 每块磁盘设备的磁盘I/O统计信息列表
+interrupts 中断的使用及触发情况
+zoneinfo 内存区域的详细信息列表
+
+
+查看进程相关信息
+
+以数字命名的文件夹中存储着进程的相关信息。而数字本身就是该进程的pid.
+如果想要知道某个进程当前更多的状态信息，只需要直到该进程的pid
+然后读取/proc/pid下的文件夹或文件内容接口
+
+
+我们随意进入一个进程id的进程信息文件夹
+
+cd /proc/7263
+
+我们可以看到该进程的很多内容，包括：
+
+cmdline用于开始进程的命令
+cwd当前进程工作目录的一个符号链接
+environ可用进程环境变量的列表
+exe正在进程中运行的程序链接
+fd/ 这个目录包含了进程打开的文件描述符
+mem 进程在内存中的内容
+status 进程的状态信息
+statm 进程的内存使用信息
+limits 进程的软限制，限制等信息
+maps 进程的内核调用栈信息
+stack 当前进程的内核调用栈信息
+syscall 进程正在执行的系统调用
+task 进程下的线程信息
+
+
+/proc/pid 有很多，我们发现程序运行时打开一个文件失败，并且没有足够的信息潘丹
+失败原因，就可以考虑查看该进程打开的文件描述符是否已经达到上限。。
+
+查看 /proc/pid 下的limits 中的文件描述符限制数量
+
+
+可以看到最大可打开的文件数量的软限制为1024,而再次进入到fd目录，
+计算总的打开的文件数量
+
+ls -lR | grep "^l" | wc -l
+
+这里得到的大小为4，很明显没有超出打开的最大内文件
+注意：文件描述符0,1,2 分别代表了标准输入，标准输出和标准错误输出
+
+进程在当前目录创建一个文件失败，而又无更多异常信息，可以查看进程的cwd链接
+指向，如果指向了一个不在预期内的目录，那么可能是工作目录被意外更改掉了
+
+
+总结
+
+

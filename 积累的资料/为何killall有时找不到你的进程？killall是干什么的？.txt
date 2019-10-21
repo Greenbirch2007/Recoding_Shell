@@ -1,0 +1,40 @@
+为何killall有时找不到你的进程？killall是干什么的？
+
+
+https://mp.weixin.qq.com/s?__biz=MzI2OTA3NTk3Ng==&mid=2649285112&idx=1&sn=c53d79eee8ee1fcc263295754f2f3d07&chksm=f2f9929fc58e1b896f87b5c1592969ca6eaf6f662738cf0607ab4e98c561757bcb6609f191f8&mpshare=1&scene=1&srcid=&sharer_sharetime=1571616249694&sharer_shareid=5baeb4516dc33f60573dd0b37ccd54cf&pass_ticket=KWSH2kHpw0Xi9tftODv0BKYIZOIQaaQ6Z5fLRjMiXWEH%2FoLZWcwvsu1cfLzrwcSM#rd
+
+
+linux有很多命令用于杀死进程，它们可以用于不同的场景，例如通过进程名杀死进程，通过pid
+杀死进程。
+
+killall
+
+kill 需要先使用ps找到进程id,然后发送信号
+
+ps -ef | grep hello
+
+
+killall hello
+
+
+killall 可以直接杀死进程
+
+必须知道它到底如何通过进程名找到进程的
+
+这时使用strace ,看看killall杀死一个普通进程到底
+
+strace killall hello
+
+killall会去proc文件系统(proc文件系统可以参考)下查找各个进程id下的stat文件和cmdline,
+使用prcl函数
+
+
+这个时候再编译运行程序查看stat和status中的名字
+
+如果名字超过了15个字符，在stat和status文件中看到的将会是被截断的名字
+
+如果发现你的程序无法通过killal进程名的方式杀死的话，看看proc文件系统中
+这个进程的stat文件或status文件中的名
+
+
+
